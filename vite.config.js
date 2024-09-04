@@ -13,7 +13,7 @@ export default defineConfig({
             cert: fs.readFileSync('/etc/letsencrypt/live/2upra.com/fullchain.pem'),
         },
         hmr: {
-            host: '2upra.com',
+            host: 'laravel.2upra.com',
             protocol: 'wss', // Utiliza WebSocket seguro
         },
     },
