@@ -47,6 +47,9 @@ export default function Welcome({ auth }) {
                     </AccordionItem>
                 </Accordion>
             </div>
+            <div className="p-4 text-white bg-blue-500">
+                Tailwind CSS está funcionando!
+            </div>
         </>
     );
 }
