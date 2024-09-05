@@ -1,5 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
-import { SocialPostCard } from "@/components/SocialPostCard"; // Importa el componente del post
+import { SocialPostCard } from "@/components/Post"; 
 
 export default function Welcome({ auth }) {
     return (
