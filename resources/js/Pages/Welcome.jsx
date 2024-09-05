@@ -1,11 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
-// import InputError from '@/Components/InputError';
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/Components/accordion";
+import { SocialPostCard } from "@/components/SocialPostCard"; // Importa el componente del post
 
 export default function Welcome({ auth }) {
     return (
@@ -38,17 +32,10 @@ export default function Welcome({ auth }) {
                         </>
                     )}
                 </div>
-                <Accordion type="single" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                        <AccordionContent>
-                            Yes. It adheres to the WAI-ARIA design pattern.
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-            </div>
-            <div className="p-4 font-sans antialiased text-white bg-blue-500">
-                Tailwind CSS está funcionando!
+
+                <div className="mt-8">
+                    <SocialPostCard />
+                </div>
             </div>
         </>
     );
