@@ -4,7 +4,7 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/resources/js/components/accordion;
+} from "@/components/accordion";
 
 export default function Welcome({ auth }) {
     return (
