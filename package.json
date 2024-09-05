@@ -21,6 +21,10 @@
     },
     "dependencies": {
         "@inertiajs/inertia-react": "^0.8.1",
-        "shadcn-ui": "^0.2.3"
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.1",
+        "shadcn-ui": "^0.2.3",
+        "tailwind-merge": "^2.5.2",
+        "tailwindcss-animate": "^1.0.7"
     }
 }
