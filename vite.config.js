@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 import path from 'path';
 
 export default defineConfig({
@@ -24,4 +26,20 @@ export default defineConfig({
         }),
         react(),
     ],
+    css: {
+        postcss: {
+            plugins: [
+                tailwindcss,
+                autoprefixer,
+            ],
+        },
+    },
+    optimizeDeps: {
+        include: ['tailwindcss', 'autoprefixer'],
+    },
+    build: {
+        commonjsOptions: {
+            include: [/tailwindcss/, /autoprefixer/],
+        },
+    },
 });
