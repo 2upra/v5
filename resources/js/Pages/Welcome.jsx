@@ -1,5 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
-import { SocialPostCard } from "@/components/Post"; 
+import { SocialPostCard } from "@/Components/Post"; 
 
 export default function Welcome({ auth }) {
     return (
