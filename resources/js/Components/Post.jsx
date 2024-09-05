@@ -5,8 +5,8 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from "@/Components/card";
+import { Button } from "@/Components/button";
 
 // Datos de ejemplo para simular un post
 const examplePost = {
