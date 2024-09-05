@@ -1,10 +1,11 @@
 import { Link, Head } from "@inertiajs/react";
+// import InputError from '@/Components/InputError';
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/components/accordion";
+} from "@/Components/accordion";
 
 export default function Welcome({ auth }) {
     return (
