@@ -24,7 +24,8 @@ module.exports = {
   	},
   	extend: {
   		fontFamily: {
-  			sans: ['Figtree', ...fontFamily.sans, 'var(--font-sans)']
+  			sans: ['Noto Sans', ...fontFamily.sans, 'var(--font-sans)']
+            
   		},
   		colors: {
   			border: 'hsl(var(--border))',
