@@ -24,7 +24,7 @@ module.exports = {
   	},
   	extend: {
   		fontFamily: {
-  			sans: ['Noto Sans', ...fontFamily.sans, 'var(--font-sans)']
+  			sans: ['"Source Sans 3", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";']
             
   		},
   		colors: {
