@@ -1,11 +1,11 @@
 import { Link, Head } from "@inertiajs/react";
-import { SocialPostCard } from "@/Components/Post"; 
+import { SocialPostCard } from "@/Components/Post";
 
 export default function Welcome({ auth }) {
     return (
         <>
             <Head title="Welcome" />
-            <div className="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+            <div className="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter bg-origin-content selection:bg-red-500 selection:text-white dark:bg-background">
                 <div className="p-6 sm:fixed sm:top-0 sm:right-0 text-end">
                     {auth.user ? (
                         <Link

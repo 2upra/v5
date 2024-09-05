@@ -20,7 +20,7 @@ const examplePost = {
 
 export function SocialPostCard() {
     return (
-        <Card className="w-[500px] my-4">
+        <Card className="w-[600px] my-4">
             <CardHeader>
                 <CardTitle>{examplePost.username}</CardTitle>
             </CardHeader>
