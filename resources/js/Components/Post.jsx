@@ -3,64 +3,124 @@ import {
     Card,
     CardContent,
     CardFooter,
-    CardHeader,
-    CardTitle,
 } from "@/Components/card";
 import { Button } from "@/Components/button";
+import Waveform from "@/Components/Wave";
+import { Heart, MoreHorizontal, MessageCircle, Share2, Download } from "@geist-ui/icons";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/Components/dropdown-menu";
+import { formatDistanceToNow } from "date-fns";
 
-// Datos de ejemplo para simular un post
+// Ejemplo de publicación con una fecha de publicación
 const examplePost = {
-    username: "JohnDoe",
+    username: "Wandorius",
+    imagenperfil:
+        "https://2upra.com/wp-content/uploads/2024/09/1ndoryu_1725478496.webp",
     content: "Este es un post de ejemplo con una imagen y un audio.",
-    image: "https://via.placeholder.com/150",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    audio: "/ACAPELLA @VIOLENCIA MANE (6).wav",
     likes: 120,
     comments: 15,
+    postId: 1,
+    waveCargada: false,
+    timestamp: new Date(2024, 8, 5, 12, 30), // Fecha de ejemplo (año, mes, día, hora, minuto)
 };
 
 export function SocialPostCard() {
+    const timeAgo = formatDistanceToNow(examplePost.timestamp, { addSuffix: true });
+
     return (
-        <Card className="w-[600px] my-4">
-            <CardHeader>
-                <CardTitle>{examplePost.username}</CardTitle>
-            </CardHeader>
+        <Card className="w-[600px] my-4 bg-background rounded-lg overflow-hidden relative">
+            {examplePost.image && (
+                <>
+                    <div
+                        className="absolute inset-0 bg-center bg-cover"
+                        style={{ backgroundImage: `url(${examplePost.image})` }}
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-sm"></div>
+                </>
+            )}
 
-            <CardContent>
-                {/* Contenido del post */}
-                <p>{examplePost.content}</p>
-
-                {/* Mostrar imagen si existe */}
-                {examplePost.image && (
-                    <div className="my-4">
+            <div className="relative z-10">
+                <div className="flex items-center justify-between p-6">
+                    <div className="flex items-center">
                         <img
-                            src={examplePost.image}
-                            alt="Post content"
-                            className="w-full rounded-md"
+                            src={examplePost.imagenperfil}
+                            alt="Imagen de perfil"
+                            className="w-10 h-10 mr-4 rounded-full"
                         />
+                        <div>
+                            <span className="text-base">{examplePost.username}</span>
+                            <p className="text-sm text-gray-500">{timeAgo}</p>
+                        </div>
                     </div>
-                )}
 
-                {/* Mostrar audio si existe */}
-                {examplePost.audio && (
-                    <div className="my-4">
-                        <audio controls>
-                            <source src={examplePost.audio} type="audio/mpeg" />
-                            Your browser does not support the audio element.
-                        </audio>
+                    <div>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <MoreHorizontal className="w-5 h-4 mr-1" />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuItem>Prueba 1</DropdownMenuItem>
+                                <DropdownMenuItem>Prueba 2</DropdownMenuItem>
+                                <DropdownMenuItem>Prueba 3</DropdownMenuItem>
+                                <DropdownMenuItem>Prueba 4</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
-                )}
-            </CardContent>
-
-            <CardFooter className="flex justify-between">
-                {/* Contador de likes y comentarios */}
-                <div>
-                    <span>{examplePost.likes} Likes</span> |{" "}
-                    <span>{examplePost.comments} Comments</span>
                 </div>
 
-                {/* Botón para interactuar con el post */}
-                <Button variant="outline">Like</Button>
-            </CardFooter>
+                <CardContent>
+                    <p>{examplePost.content}</p>
+
+                    {examplePost.audio && (
+                        <div className="my-4">
+                            <Waveform
+                                audioSrc={examplePost.audio}
+                                postId={examplePost.postId}
+                                waveCargada={examplePost.waveCargada}
+                            />
+                        </div>
+                    )}
+                </CardContent>
+
+                <CardFooter className="flex gap-2">
+                    <Button
+                        variant="outline"
+                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                    >
+                        <Heart className="w-5 h-4 mr-1" />
+                        {examplePost.likes}
+                    </Button>
+                    
+                    <Button
+                        variant="outline"
+                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                    >
+                        <MessageCircle className="w-5 h-4 mr-1" />
+                        {examplePost.likes}
+                    </Button>
+
+                    <Button
+                        variant="outline"
+                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                    >
+                        <Share2 className="w-5 h-4 mr-1" />
+                        {examplePost.likes}
+                    </Button>
+
+                    <Button
+                        variant="outline"
+                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                    >
+                        <Download className="w-5 h-4" />
+                    </Button>
+                    
+                </CardFooter>
+            </div>
         </Card>
     );
 }

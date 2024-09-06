@@ -34,6 +34,11 @@ export default function Welcome({ auth }) {
                 </div>
 
                 <div className="mt-8">
+                    
+                </div>
+                
+
+                <div className="mt-8">
                     <SocialPostCard />
                 </div>
             </div>
