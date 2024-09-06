@@ -6,6 +6,8 @@ const Waveform = ({ audioSrc, postId, waveCargada }) => {
     const waveSurferRef = useRef(null);
     const [audioLoaded, setAudioLoaded] = useState(false);
     const [initialized, setInitialized] = useState(false);
+    const [retryCount, setRetryCount] = useState(0);
+    const maxRetries = 3; // Número máximo de intentos de recarga
 
     const initWavesurfer = useCallback(() => {
         const container = containerRef.current;
@@ -47,13 +49,22 @@ const Waveform = ({ audioSrc, postId, waveCargada }) => {
         wavesurfer.on("ready", () => {
             window.audioLoading = false;
             setAudioLoaded(true);
+            setRetryCount(0); // Resetear el contador de intentos al cargar con éxito
             container.querySelector(".waveform-loading").style.display = "none";
         });
 
         wavesurfer.on("error", () => {
-            setTimeout(() => loadAndPlayAudio(wavesurfer, src), 3000);
+            if (retryCount < maxRetries) {
+                setRetryCount(prevCount => prevCount + 1);
+                setTimeout(() => loadAndPlayAudio(wavesurfer, src), 3000);
+            } else {
+                window.audioLoading = false;
+                container.querySelector(".waveform-loading").style.display = "none";
+                container.querySelector(".waveform-message").style.display = "block";
+                container.querySelector(".waveform-message").textContent = "Error loading audio. Please try again later.";
+            }
         });
-    }, []);
+    }, [retryCount, maxRetries]);
 
     useEffect(() => {
         if (!initialized && containerRef.current) {
