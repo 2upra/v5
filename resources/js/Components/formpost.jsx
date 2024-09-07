@@ -105,7 +105,7 @@ export function ProfileForm() {
                                         </div>
                                     )}
                                 </div>
-                                <FormControl asChild>
+                                <FormControl >
                                     <div className="flex items-center p-4 border rounded-md">
                                         <p className="font-semibold">
                                             Opciones de publicación

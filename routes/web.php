@@ -18,9 +18,11 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-
+//OBTENER TAREA
 Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
+//CREAR TAREA
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+
 Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
 
 
