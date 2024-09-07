@@ -18,18 +18,11 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-//OBTENER TAREA
-Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
-//CREAR TAREA
-Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-
-Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    
 });
 
 
@@ -53,4 +46,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

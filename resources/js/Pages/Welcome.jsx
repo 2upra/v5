@@ -7,46 +7,10 @@ import {
     TabsTrigger,
     TabsContent,
 } from "@/Components/TabsVertical";
-import Task from "@/Components/Task";
 import React, { useState, useEffect } from "react";
-import TaskSection from "@/Components/TaskSection";
 
 export default function Welcome({ }) {
-    const { tasks: initialTasks } = usePage().props;
-    const [tasks, setTasks] = useState(initialTasks || []);
     const { auth } = usePage().props;
-
-    const taskGroups = [
-        {
-            title: "Grupo 1",
-            tasks: [
-                { title: "Tarea 1", description: "Descripción de Tarea 1" },
-                { title: "Tarea 2", description: "Descripción de Tarea 2" },
-            ],
-        },
-        {
-            title: "Grupo 2",
-            tasks: [
-                { title: "Tarea A", description: "Descripción de Tarea A" },
-                { title: "Tarea B", description: "Descripción de Tarea B" },
-                { title: "Tarea C", description: "Descripción de Tarea C" },
-            ],
-        },
-    ];
-
-    const handleTaskCreated = (newTask) => {
-        setTasks(prevTasks => {
-            // Verifica si la tarea ya existe en el array
-            const taskExists = prevTasks.some(task => task.id === newTask.id);
-            if (taskExists) {
-                // Si existe, actualiza la tarea existente
-                return prevTasks.map(task => task.id === newTask.id ? newTask : task);
-            } else {
-                // Si no existe, añade la nueva tarea al array
-                return [...prevTasks, newTask];
-            }
-        });
-    };
 
 
     return (
@@ -110,49 +74,11 @@ export default function Welcome({ }) {
                                     </p>
                                 </div>
 
-                                {/* Primer grupo */}
-                                <div className="w-full mt-5">
-                                    <h3>{taskGroups[0].title}</h3>
-                                    {taskGroups[0].tasks.map(
-                                        (task, taskIndex) => (
-                                            <TaskSection
-                                                key={taskIndex}
-                                                title={task.title}
-                                                description={task.description}
-                                                currentUser={auth.user}
-                                                tasks={tasks}
-                                                onTaskCreated={
-                                                    handleTaskCreated
-                                                }
-                                            />
-                                        )
-                                    )}
-                                </div>
-
                                 <div className="w-full mt-5">
                                     <h2>-</h2>
                                     <p>
                                         -
                                     </p>
-                                </div>
-
-                                {/* Segundo grupo */}
-                                <div className="w-full mt-5">
-                                    <h3>{taskGroups[1].title}</h3>
-                                    {taskGroups[1].tasks.map(
-                                        (task, taskIndex) => (
-                                            <TaskSection
-                                                key={taskIndex}
-                                                title={task.title}
-                                                description={task.description}
-                                                currentUser={auth.user}
-                                                tasks={tasks}
-                                                onTaskCreated={
-                                                    handleTaskCreated
-                                                }
-                                            />
-                                        )
-                                    )}
                                 </div>
 
                                 <div className="w-full mt-5 mb-5 text-left">

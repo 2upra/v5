@@ -13,7 +13,6 @@ class TaskController extends Controller
     {
         Log::debug('Fetching all tasks');
 
-        // Obtener todas las tareas con el usuario asignado y el último que actualizó
         $tasks = Task::with(['user', 'lastUpdatedBy'])->get();
         Log::debug('Tasks fetched', ['tasks' => $tasks]);
 
@@ -25,36 +24,48 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         Log::debug('Storing a new task', ['request_data' => $request->all()]);
-
+    
         try {
+            
             $validated = $request->validate([
+                'id' => 'nullable|integer|exists:tasks,id',
                 'title' => 'required|string|max:255',
                 'description' => 'nullable|string',
                 'status' => 'required|in:inactive,in_progress,completed',
-                'user_id' => 'required|exists:users,id',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Validation failed', ['errors' => $e->errors()]);
-            return response()->json(['errors' => $e->errors()], 422);
-        }
+        
+            if (isset($validated['id'])) {
+                $task = Task::findOrFail($validated['id']);
+                $task->update($validated);
+            } else {
+                $task = Task::create($validated);
+            }
+            // Agregar el user_id del usuario autenticado
+            $validated['user_id'] = auth()->id();
     
-        // Verificar si ya existe una tarea con el mismo título
-        $existingTask = Task::where('title', $validated['title'])->first();
-        if ($existingTask) {
-            return response()->json([
-                'message' => 'Una tarea con este título ya existe',
-                'task' => $existingTask,
+            // Verificar si ya existe una tarea con el mismo título
+            $existingTask = Task::where('title', $validated['title'])->first();
+            if ($existingTask) {
+                return Inertia::render('Welcome', [
+                    'message' => 'Una tarea con este título ya existe',
+                    'task' => $existingTask,
+                    'tasks' => Task::all(),
+                ])->toResponse($request)->setStatusCode(422);
+            }
+    
+            $task = Task::create($validated);
+            Log::info('Task created successfully', ['task' => $task]);
+    
+            return Inertia::render('Welcome', [
+                'task' => $task,
                 'tasks' => Task::all(),
-            ], 422);
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error creating task', ['error' => $e->getMessage()]);
+            return Inertia::render('Welcome', [
+                'error' => 'Error al crear la tarea: ' . $e->getMessage(),
+            ])->toResponse($request)->setStatusCode(500);
         }
-    
-        $task = Task::create($validated);
-        Log::info('Task created successfully', ['task' => $task]);
-    
-        return response()->json([
-            'task' => $task,
-            'tasks' => Task::all(),
-        ]);
     }
 
     public function update(Request $request, Task $task)
@@ -65,9 +76,12 @@ class TaskController extends Controller
             'status' => 'required|in:inactive,in_progress,completed',
         ]);
     
-        if ($task->status !== 'inactive' && $task->user_id !== auth()->id()) {
+        // Permitir que el mismo usuario actualice la tarea
+        if ($task->status !== 'inactive' && $task->user_id !== null && $task->user_id !== auth()->id()) {
             Log::warning('Task update failed: task in progress or completed by another user', ['task_id' => $task->id]);
-            return back()->with('error', 'Esta tarea está en progreso o completada por otro usuario.');
+            return Inertia::render('Welcome', [
+                'error' => 'Esta tarea está en progreso o completada por otro usuario.',
+            ])->toResponse($request)->setStatusCode(403);
         }
     
         $task->update([
@@ -78,6 +92,8 @@ class TaskController extends Controller
     
         Log::info('Task updated successfully', ['task' => $task]);
     
-        return back();
+        return Inertia::render('Welcome', [
+            'task' => $task->fresh()->load(['user', 'lastUpdatedBy']),
+        ]);
     }
 }
