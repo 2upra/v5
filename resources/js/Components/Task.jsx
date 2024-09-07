@@ -28,21 +28,21 @@ const Task = ({
     }, []);
 
     const taskExists = () => {
-        return tasks.some(
+        return tasks && tasks.some(
             (task) =>
                 task.title.toLowerCase() === data.title.toLowerCase() &&
-                task.description.toLowerCase() ===
-                    data.description.toLowerCase()
+                task.description.toLowerCase() === data.description.toLowerCase()
         );
     };
 
     const createTask = () => {
         if (taskExists()) {
+            console.log("Task already exists, not creating a duplicate");
             return;
         }
-
+    
         setIsUpdating(true);
-
+    
         axios
             .post("/tasks", {
                 title: data.title,
@@ -51,6 +51,7 @@ const Task = ({
                 user_id: currentUser.id,
             })
             .then((response) => {
+                console.log("Task created successfully:", response.data);
                 setIsUpdating(false);
                 setData("id", response.data.task.id);
                 if (onTaskCreated) {
@@ -60,12 +61,15 @@ const Task = ({
             .catch((error) => {
                 setIsUpdating(false);
                 if (error.response && error.response.status === 422) {
+                    console.log("Task already exists:", error.response.data.message);
                     if (error.response.data.task) {
                         setData("id", error.response.data.task.id);
                         if (onTaskCreated) {
                             onTaskCreated(error.response.data.task);
                         }
                     }
+                } else {
+                    console.error("Error creating task:", error);
                 }
             });
     };

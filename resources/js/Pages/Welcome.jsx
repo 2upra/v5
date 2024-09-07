@@ -11,7 +11,7 @@ import Task from "@/Components/Task";
 import React, { useState, useEffect } from "react";
 import TaskSection from "@/Components/TaskSection";
 
-export default function Welcome({}) {
+export default function Welcome({ }) {
     const { tasks: initialTasks } = usePage().props;
     const [tasks, setTasks] = useState(initialTasks || []);
     const { auth } = usePage().props;
@@ -34,9 +34,20 @@ export default function Welcome({}) {
         },
     ];
 
-    const handleTaskCreated = (createdTask) => {
-        setTasks((prevTasks) => [...prevTasks, createdTask]);
+    const handleTaskCreated = (newTask) => {
+        setTasks(prevTasks => {
+            // Verifica si la tarea ya existe en el array
+            const taskExists = prevTasks.some(task => task.id === newTask.id);
+            if (taskExists) {
+                // Si existe, actualiza la tarea existente
+                return prevTasks.map(task => task.id === newTask.id ? newTask : task);
+            } else {
+                // Si no existe, añade la nueva tarea al array
+                return [...prevTasks, newTask];
+            }
+        });
     };
+
 
     return (
         <>
@@ -118,12 +129,10 @@ export default function Welcome({}) {
                                     )}
                                 </div>
 
-                                {/* Algún contenido intermedio si lo deseas */}
                                 <div className="w-full mt-5">
-                                    <h2>Contenido intermedio</h2>
+                                    <h2>-</h2>
                                     <p>
-                                        Aquí puedes agregar cualquier contenido
-                                        que desees entre los grupos.
+                                        -
                                     </p>
                                 </div>
 
