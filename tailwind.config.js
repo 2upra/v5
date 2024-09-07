@@ -11,8 +11,8 @@ module.exports = {
     './storage/framework/views/*.php',
     './resources/views/**/*.blade.php',
     './resources/js/**/*.jsx',
-    'resources/**/*.{js,jsx,ts,tsx}', // Asegurarse de que todos los archivos JSX estén incluidos
-    'components/**/*.{js,jsx,ts,tsx}', // Añadir los componentes que has mencionado
+    'resources/**/*.{js,jsx,ts,tsx}', 
+    'components/**/*.{js,jsx,ts,tsx}', 
   ],
   theme: {
   	container: {

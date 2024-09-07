@@ -1,12 +1,14 @@
 import * as React from "react";
-import {
-    Card,
-    CardContent,
-    CardFooter,
-} from "@/Components/card";
+import { Card, CardContent, CardFooter } from "@/Components/card";
 import { Button } from "@/Components/button";
 import Waveform from "@/Components/Wave";
-import { Heart, MoreHorizontal, MessageCircle, Share2, Download } from "@geist-ui/icons";
+import {
+    Heart,
+    MoreHorizontal,
+    MessageCircle,
+    Share2,
+    Download,
+} from "@geist-ui/icons";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,6 +16,7 @@ import {
     DropdownMenuTrigger,
 } from "@/Components/dropdown-menu";
 import { formatDistanceToNow } from "date-fns";
+import { ProfileHeader } from "@/Components/ProfileHeader";
 
 // Ejemplo de publicación con una fecha de publicación
 const examplePost = {
@@ -30,10 +33,12 @@ const examplePost = {
 };
 
 export function SocialPostCard() {
-    const timeAgo = formatDistanceToNow(examplePost.timestamp, { addSuffix: true });
+    const timeAgo = formatDistanceToNow(examplePost.timestamp, {
+        addSuffix: true,
+    });
 
     return (
-        <Card className="w-[600px] my-4 bg-background rounded-lg overflow-hidden relative">
+        <Card className="max-w-[600px] w-[600px] my-4 bg-background rounded-lg overflow-hidden relative">
             {examplePost.image && (
                 <>
                     <div
@@ -46,18 +51,14 @@ export function SocialPostCard() {
 
             <div className="relative z-10">
                 <div className="flex items-center justify-between p-6">
-                    <div className="flex items-center">
-                        <img
-                            src={examplePost.imagenperfil}
-                            alt="Imagen de perfil"
-                            className="w-10 h-10 mr-4 rounded-full"
-                        />
-                        <div>
-                            <span className="text-base">{examplePost.username}</span>
-                            <p className="text-sm text-gray-500">{timeAgo}</p>
-                        </div>
-                    </div>
-
+                    <ProfileHeader
+                        username={examplePost.username}
+                        imagenperfil={examplePost.imagenperfil}
+                        timestamp={examplePost.timestamp}
+                        imageSize={40} 
+                        fontSize="16px"
+                        showTime={true} 
+                    />
                     <div>
                         <DropdownMenu>
                             <DropdownMenuTrigger>
@@ -95,7 +96,7 @@ export function SocialPostCard() {
                         <Heart className="w-5 h-4 mr-1" />
                         {examplePost.likes}
                     </Button>
-                    
+
                     <Button
                         variant="outline"
                         className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
@@ -118,7 +119,6 @@ export function SocialPostCard() {
                     >
                         <Download className="w-5 h-4" />
                     </Button>
-                    
                 </CardFooter>
             </div>
         </Card>

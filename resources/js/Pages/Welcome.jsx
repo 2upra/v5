@@ -1,5 +1,13 @@
 import { Link, Head } from "@inertiajs/react";
 import { SocialPostCard } from "@/Components/Post";
+import { ProfileForm } from "@/Components/formpost";
+import {
+    Tabs,
+    TabsList,
+    TabsTrigger,
+    TabsContent,
+} from "@/Components/TabsVertical";
+import Task from "@/Components/Task";
 
 export default function Welcome({ auth }) {
     return (
@@ -32,14 +40,60 @@ export default function Welcome({ auth }) {
                         </>
                     )}
                 </div>
+                <div className="flex flex-col w-full">
+                    <Tabs
+                        className="flex flex-row items-center w-full p-5"
+                        defaultValue="tab1"
+                    >
+                        <TabsList className="fixed top-[20px] left-[20px]">
+                            <TabsTrigger value="tab1">Samples</TabsTrigger>
+                            <TabsTrigger value="tab2">Test</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="tab1">
+                            <div className="flex flex-col items-center justify-center m-auto max-w-[600px]">
+                                <div className="w-full mt-5 mb-0 text-left">
+                                    <h2>1. Gestión de samples</h2>
+                                    <p>
+                                        Esta es la principal fuente de valor del
+                                        proyecto y la más importante, por lo
+                                        tanto es la primera en la que se debería
+                                        de trabajar. Para que sea realmente
+                                        especial, no solo desde la publicación,
+                                        sino desde su distribución y busqueda
+                                        deben de ofrecer una experiencia
+                                        irrepetible en cualquier otra
+                                        plataforma.
+                                    </p>
+                                </div>
+                                <div className="w-full mt-5 mb-5 text-left">
+                                    <h3>1.1 Formulario de sample</h3>
+                                    <p>
+                                        Esta es la herramienta principal de los
+                                        artistas, lo que le permitirá compartir
+                                        sus trabajos, conseguir colaboraciones y
+                                        presentarse ante sus fans.
+                                    </p>
+                                </div>
+                                
+                                <ProfileForm />
 
-                <div className="mt-8">
-                    
-                </div>
-                
+                                <div className="w-full mt-5 mb-5 text-left">
+                                    <h4>1.1.1 Conexión al backend</h4>
+                                    <p>
+                                        Al publicar un sample debe generase una publicación adjunto al usuario que contenga los archivos que subio, y toda la información que proporcionó. <br /><br />
 
-                <div className="mt-8">
-                    <SocialPostCard />
+                                        El usuario puede publicar una imagen sin problema, o no publicar ningún archivo, el sistema debe detectar que si tiene un audio, entonces es un sample, si tiene una imagen y un audio, es un sample con su respectivo cover art, si el usuario solo sube una imagen, no es un sample logicamente, el audio no puede superar más de 50 mb, el audio debe procesarse y tener una version lite de 124 kb para reproducir, y la versión hd original en la que se subio el audio, ambas versiones deben detectarse correctamente ajuntas al post, todos los audios deben detectarse si se subieron ya al servidor, en caso de que sea un audio repetido, avisar al usuario que no puede publicarlo.
+                                    </p>
+                                    <Task title="Tarea 2" description="Esta es la descripción de la tarea 2" />
+                                </div>
+                                <SocialPostCard />
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="tab2"></TabsContent>
+                        <TabsContent value="tab3">
+                            <p>Contenido del Tab 3</p>
+                        </TabsContent>
+                    </Tabs>
                 </div>
             </div>
         </>
