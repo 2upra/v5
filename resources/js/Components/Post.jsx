@@ -38,17 +38,17 @@ export function SocialPostCard() {
     });
 
     return (
-        <Card className="max-w-[600px] w-[600px] my-4 bg-background rounded-lg overflow-hidden relative">
+        <Card className="max-w-[600px] w-[600px] my-4 rounded-lg overflow-hidden relative bg-card">
             {examplePost.image && (
                 <>
                     <div
                         className="absolute inset-0 bg-center bg-cover"
                         style={{ backgroundImage: `url(${examplePost.image})` }}
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-sm"></div>
+                    <div className="absolute inset-0 bg-black/50 backdrop-filter backdrop-blur-sm"></div>
                 </>
             )}
-
+    
             <div className="relative z-10">
                 <div className="flex items-center justify-between p-6">
                     <ProfileHeader
@@ -62,7 +62,7 @@ export function SocialPostCard() {
                     <div>
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <MoreHorizontal className="w-5 h-4 mr-1" />
+                                <MoreHorizontal className="w-5 h-4 mr-1 text-foreground" />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem>Prueba 1</DropdownMenuItem>
@@ -73,10 +73,10 @@ export function SocialPostCard() {
                         </DropdownMenu>
                     </div>
                 </div>
-
+    
                 <CardContent>
-                    <p>{examplePost.content}</p>
-
+                    <p className="text-foreground">{examplePost.content}</p>
+    
                     {examplePost.audio && (
                         <div className="my-4">
                             <Waveform
@@ -87,35 +87,35 @@ export function SocialPostCard() {
                         </div>
                     )}
                 </CardContent>
-
+    
                 <CardFooter className="flex gap-2">
                     <Button
                         variant="outline"
-                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                        className="bg-background/20 hover:bg-background/30 text-foreground"
                     >
                         <Heart className="w-5 h-4 mr-1" />
                         {examplePost.likes}
                     </Button>
-
+    
                     <Button
                         variant="outline"
-                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                        className="bg-background/20 hover:bg-background/30 text-foreground"
                     >
                         <MessageCircle className="w-5 h-4 mr-1" />
                         {examplePost.likes}
                     </Button>
-
+    
                     <Button
                         variant="outline"
-                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                        className="bg-background/20 hover:bg-background/30 text-foreground"
                     >
                         <Share2 className="w-5 h-4 mr-1" />
                         {examplePost.likes}
                     </Button>
-
+    
                     <Button
                         variant="outline"
-                        className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                        className="bg-background/20 hover:bg-background/30 text-foreground"
                     >
                         <Download className="w-5 h-4" />
                     </Button>

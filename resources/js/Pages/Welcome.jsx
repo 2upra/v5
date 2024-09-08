@@ -8,15 +8,20 @@ import {
     TabsContent,
 } from "@/Components/TabsVertical";
 import React, { useState, useEffect } from "react";
+import CreateTask from '@/Components/Tasks/CreateTask';
+import ViewTask from '@/Components/Tasks/ViewTask';
+import TaskManager from "@/Components/Tasks/TaskManager";
 
 export default function Welcome({ }) {
     const { auth } = usePage().props;
-
-
+    const handleTaskCreated = (task) => {
+        console.log('Task created:', task);
+    };
+    const taskId = 1;
     return (
         <>
             <Head title="Welcome" />
-            <div className="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter bg-origin-content selection:bg-red-500 selection:text-white dark:bg-background">
+            <div className="relative min-h-screen bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter bg-origin-content selection:bg-red-500 selection:text-white">
                 <div className="p-6 sm:fixed sm:top-0 sm:right-0 text-end">
                     {auth.user ? (
                         <Link
@@ -74,13 +79,6 @@ export default function Welcome({ }) {
                                     </p>
                                 </div>
 
-                                <div className="w-full mt-5">
-                                    <h2>-</h2>
-                                    <p>
-                                        -
-                                    </p>
-                                </div>
-
                                 <div className="w-full mt-5 mb-5 text-left">
                                     <h3>1.1 Formulario de sample</h3>
                                     <p>
@@ -89,6 +87,7 @@ export default function Welcome({ }) {
                                         sus trabajos, conseguir colaboraciones y
                                         presentarse ante sus fans.
                                     </p>
+
                                 </div>
 
                                 <ProfileForm />
@@ -101,25 +100,20 @@ export default function Welcome({ }) {
                                         contenga los archivos que subio, y toda
                                         la información que proporcionó. <br />
                                         <br />
-                                        El usuario puede publicar una imagen sin
-                                        problema, o no publicar ningún archivo,
-                                        el sistema debe detectar que si tiene un
-                                        audio, entonces es un sample, si tiene
-                                        una imagen y un audio, es un sample con
-                                        su respectivo cover art, si el usuario
-                                        solo sube una imagen, no es un sample
-                                        logicamente, el audio no puede superar
-                                        más de 50 mb, el audio debe procesarse y
-                                        tener una version lite de 124 kb para
-                                        reproducir, y la versión hd original en
-                                        la que se subio el audio, ambas
-                                        versiones deben detectarse correctamente
-                                        ajuntas al post, todos los audios deben
-                                        detectarse si se subieron ya al
-                                        servidor, en caso de que sea un audio
-                                        repetido, avisar al usuario que no puede
-                                        publicarlo.
                                     </p>
+                                    <TaskManager descriptions={[
+                                        'Implementar validación de archivos subidos',
+                                        'Desarrollar lógica de detección de tipo de publicación',
+                                        'Crear sistema de procesamiento de audio',
+                                        'Implementar almacenamiento de archivos en servidor',
+                                        'Desarrollar detección de audios duplicados',
+                                        'Crear API para manejo de publicaciones',
+                                        'Integrar formulario con backend',
+                                        'Implementar manejo de errores y notificaciones',
+                                        'Optimizar rendimiento de carga y procesamiento',
+                                        'Realizar pruebas de integración y seguridad'
+                                    ]} />
+                                    <TaskManager descriptions={['Tarea 1', 'Tarea 2', 'Tarea 3']} />
                                 </div>
                                 <SocialPostCard />
                             </div>

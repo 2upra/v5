@@ -18,6 +18,7 @@ import { File, Download, Star, Triangle } from "@geist-ui/icons";
 import { ProfileHeader } from "@/Components/ProfileHeader";
 import { ImageUpload } from "./ImageUpload";
 import { AudioUpload } from "./AudioUpload";
+import { Card, CardContent, CardFooter } from "@/components/card";
 
 const formSchema = z.object({
     contenido: z.string().min(6, {
@@ -49,102 +50,102 @@ export function ProfileForm() {
     };
 
     return (
-        <div className="p-6 border rounded-lg max-w-[600px] w-[600px]">
+        <Card className="max-w-[600px] w-[600px]">
             <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
-                >
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-0">
                     <FormField
                         control={form.control}
                         name="contenido"
                         render={({ field }) => (
                             <FormItem>
-                                <div className="mb-2">
-                                    <ProfileHeader
-                                        username={examplePost.username}
-                                        imagenperfil={examplePost.imagenperfil}
-                                        timestamp={examplePost.timestamp}
-                                        imageSize={35}
-                                        fontSize="16px"
-                                        showTime={false}
-                                    />
-                                </div>
-                                <FormControl>
-                                    <textarea
-                                        {...field}
-                                        className="w-full p-0 overflow-hidden text-sm bg-transparent border-0 resize-none placeholder-neutral-500 focus:ring-0"
-                                        rows="1"
-                                        placeholder="Añade tags con #"
-                                        onInput={(e) => {
-                                            e.target.style.height = "auto";
-                                            e.target.style.height = `${e.target.scrollHeight}px`;
-                                        }}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                                <div className="flex gap-2">
-                                    {selectedImage && (
-                                        <div className="p-4 mb-4 border rounded-lg w-[100%] items-center">
-                                            <img
-                                                src={selectedImage}
-                                                alt="Previsualización"
-                                                className="object-cover w-auto h-auto rounded-md aspect-square"
-                                            />
-                                        </div>
-                                    )}
-                                    {selectedAudio && (
-                                        <div className="p-4 mb-4 border rounded-lg w-[100%] content-center">
-                                            {selectedAudio && (
-                                                <Waveform
-                                                    audioSrc={selectedAudio}
-                                                    postId="unique-post-id"
-                                                    waveCargada={true}
-                                                />
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-                                <FormControl >
-                                    <div className="flex items-center p-4 border rounded-md">
-                                        <p className="font-semibold">
-                                            Opciones de publicación
-                                        </p>
-                                        <div className="flex gap-2 ml-auto">
-                                            <ButtonCheckbox>
-                                                <Download className="w-4 h-4" />
-                                            </ButtonCheckbox>
-                                            <ButtonCheckbox>
-                                                <Star className="w-4 h-4" />
-                                            </ButtonCheckbox>
-                                            <ButtonCheckbox>
-                                                <Triangle className="w-4 h-4" />
-                                            </ButtonCheckbox>
-                                        </div>
+                                <CardContent className="space-y-2">
+                                    <div className="mt-6 mb-2">
+                                        <ProfileHeader
+                                            username={examplePost.username}
+                                            imagenperfil={examplePost.imagenperfil}
+                                            timestamp={examplePost.timestamp}
+                                            imageSize={35}
+                                            fontSize="16px"
+                                            showTime={false}
+                                        />
                                     </div>
-                                </FormControl>
+                                    <FormControl>
+                                        <textarea
+                                            {...field}
+                                            className="w-full p-0 overflow-hidden text-sm bg-transparent border-0 resize-none placeholder-muted-foreground focus:ring-0"
+                                            rows="1"
+                                            placeholder="Añade tags con #"
+                                            onInput={(e) => {
+                                                e.target.style.height = "auto";
+                                                e.target.style.height = `${e.target.scrollHeight}px`;
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                    <div className="flex gap-2 m-0">
+                                        {selectedImage && (
+                                            <Card className="w-full">
+                                                <CardContent className="p-4">
+                                                    <img
+                                                        src={selectedImage}
+                                                        alt="Previsualización"
+                                                        className="object-cover w-auto h-auto rounded-md aspect-square"
+                                                    />
+                                                </CardContent>
+                                            </Card>
+                                        )}
+                                        {selectedAudio && (
+                                            <Card className="w-full">
+                                                <CardContent className="p-4">
+                                                    <Waveform
+                                                        audioSrc={selectedAudio}
+                                                        postId="unique-post-id"
+                                                        waveCargada={true}
+                                                    />
+                                                </CardContent>
+                                            </Card>
+                                        )}
+                                    </div>
+                                    <FormControl>
+                                        <Card>
+                                            <CardContent className="flex items-center p-4">
+                                                <p className="font-semibold">
+                                                    Opciones de publicación
+                                                </p>
+                                                <div className="flex gap-2 ml-auto">
+                                                    <ButtonCheckbox>
+                                                        <Download className="w-4 h-4" />
+                                                    </ButtonCheckbox>
+                                                    <ButtonCheckbox>
+                                                        <Star className="w-4 h-4" />
+                                                    </ButtonCheckbox>
+                                                    <ButtonCheckbox>
+                                                        <Triangle className="w-4 h-4" />
+                                                    </ButtonCheckbox>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    </FormControl>
+                                </CardContent>
                             </FormItem>
                         )}
                     />
-                    <div className="flex gap-2">
+                    <CardFooter className="flex gap-2">
                         <ImageUpload onImageSelect={setSelectedImage} />
                         <AudioUpload onAudioSelect={setSelectedAudio} />
-                        <Button
-                            variant="outline"
-                            className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
-                        >
+                        <Button variant="outline">
                             <File className="w-4 h-4" />
                         </Button>
                         <Button
-                            variant="outline"
-                            className="ml-auto text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
+                            variant="default"
+                            className="ml-auto"
                             type="submit"
                         >
                             Publicar
                         </Button>
-                    </div>
+                    </CardFooter>
                 </form>
             </Form>
-        </div>
+        </Card>
     );
 }

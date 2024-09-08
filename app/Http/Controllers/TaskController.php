@@ -4,96 +4,72 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class TaskController extends Controller
 {
-    public function index()
+
+    //Busca una tarea
+    public function index(Request $request)
     {
-        Log::debug('Fetching all tasks');
-
-        $tasks = Task::with(['user', 'lastUpdatedBy'])->get();
-        Log::debug('Tasks fetched', ['tasks' => $tasks]);
-
-        return Inertia::render('Welcome', [
-            'tasks' => $tasks,
-        ]);
+        $description = $request->query('description'); 
+        $tasks = Task::where('description', $description)->get();
+        return response()->json($tasks);
     }
 
+    //Guarda una tarea en la base de datos
     public function store(Request $request)
     {
-        Log::debug('Storing a new task', ['request_data' => $request->all()]);
-    
-        try {
-            
-            $validated = $request->validate([
-                'id' => 'nullable|integer|exists:tasks,id',
-                'title' => 'required|string|max:255',
-                'description' => 'nullable|string',
-                'status' => 'required|in:inactive,in_progress,completed',
-            ]);
-        
-            if (isset($validated['id'])) {
-                $task = Task::findOrFail($validated['id']);
-                $task->update($validated);
-            } else {
-                $task = Task::create($validated);
-            }
-            // Agregar el user_id del usuario autenticado
-            $validated['user_id'] = auth()->id();
-    
-            // Verificar si ya existe una tarea con el mismo título
-            $existingTask = Task::where('title', $validated['title'])->first();
-            if ($existingTask) {
-                return Inertia::render('Welcome', [
-                    'message' => 'Una tarea con este título ya existe',
-                    'task' => $existingTask,
-                    'tasks' => Task::all(),
-                ])->toResponse($request)->setStatusCode(422);
-            }
-    
-            $task = Task::create($validated);
-            Log::info('Task created successfully', ['task' => $task]);
-    
-            return Inertia::render('Welcome', [
-                'task' => $task,
-                'tasks' => Task::all(),
-            ]);
-        } catch (\Exception $e) {
-            Log::error('Error creating task', ['error' => $e->getMessage()]);
-            return Inertia::render('Welcome', [
-                'error' => 'Error al crear la tarea: ' . $e->getMessage(),
-            ])->toResponse($request)->setStatusCode(500);
-        }
+        $request->validate([
+            'description' => 'required|string|max:255',
+            'status' => 'required|in:default,in_progress,completed',
+            'executed_by' => 'nullable|exists:users,id',
+        ]);
+
+        Task::create($request->all());
+    }
+    public function show(Task $task)
+    {
+        return response()->json($task);
     }
 
     public function update(Request $request, Task $task)
     {
-        Log::debug('Updating task', ['task_id' => $task->id, 'current_status' => $task->status, 'new_status' => $request->status]);
-    
-        $request->validate([
-            'status' => 'required|in:inactive,in_progress,completed',
-        ]);
-    
-        // Permitir que el mismo usuario actualice la tarea
-        if ($task->status !== 'inactive' && $task->user_id !== null && $task->user_id !== auth()->id()) {
-            Log::warning('Task update failed: task in progress or completed by another user', ['task_id' => $task->id]);
-            return Inertia::render('Welcome', [
-                'error' => 'Esta tarea está en progreso o completada por otro usuario.',
-            ])->toResponse($request)->setStatusCode(403);
+        // Verificar si el usuario está autenticado
+        if (!auth()->check()) {
+            return response()->json(['error' => 'No autenticado'], 403);
         }
     
+        // Validar los datos recibidos
+        $request->validate([
+            'description' => 'required|string|max:255',
+            'status' => 'required|in:default,in_progress,completed',
+            'executed_by' => 'nullable|exists:users,id',
+        ]);
+    
+        // Si la tarea está en progreso o completada, verificar que el usuario autenticado sea el mismo que la marcó
+        if (in_array($task->status, ['in_progress', 'completed']) && $task->executed_by !== auth()->id()) {
+            return response()->json(['error' => 'No autorizado para cambiar el estado de esta tarea'], 403);
+        }
+    
+        // Si el estado es "default", no asignar la ID del usuario
+        $executedBy = $request->input('status') === 'default' ? null : auth()->id();
+    
+        // Actualizar la tarea con los datos recibidos y la ID del usuario si no es "default"
         $task->update([
-            'status' => $request->status,
-            'user_id' => $request->status === 'inactive' ? null : auth()->id(),
-            'last_updated_by' => auth()->id(),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
+            'executed_by' => $executedBy,
         ]);
     
-        Log::info('Task updated successfully', ['task' => $task]);
-    
-        return Inertia::render('Welcome', [
-            'task' => $task->fresh()->load(['user', 'lastUpdatedBy']),
-        ]);
+        return response()->json($task);
+    }
+
+    // Eliminar una tarea según la ID
+    public function destroy(Task $task)
+    {
+        $task->delete();
+
+        return redirect()->route('tasks.index');
     }
 }

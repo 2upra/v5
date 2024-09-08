@@ -7,7 +7,7 @@
     :root {
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
-        --card: 0 0% 100%;
+        --card: 0 0% 95%;
         --card-foreground: 240 10% 3.9%;
         --popover: 0 0% 100%;
         --popover-foreground: 240 10% 3.9%;
@@ -34,7 +34,7 @@
 
     .dark {
         --background: 240 0% 3.9%;
-        --foreground: 0 0% 98%;
+        --foreground: 0 0% 90%;
         --card: 240 0% 4%;
         --card-foreground: 0 0% 98%;
         --popover: 240 0% 3.9%;
@@ -61,15 +61,28 @@
 }
 
 @layer base {
+    :root {
+        --h2-color: 0 0% 10%; /* Más oscuro que el foreground */
+        --p-color: 240 10% 20%; /* Un poco más claro que el foreground */
+    }
+
+    .dark {
+        --h2-color: 0 0% 100%; /* Más blanco que el foreground */
+        --p-color: 240 5% 80%; /* Un poco más oscuro que el foreground */
+    }
+    p {
+        @apply text-sm leading-relaxed;
+        color: hsl(var(--p-color));
+    }
+}
+
+@layer base {
     * {
         @apply border-border;
     }
     body {
         @apply bg-background text-foreground;
         font-feature-settings: "rlig" 1, "calt" 1;
-    }
-    p {
-      @apply text-sm leading-relaxed text-zinc-400;
     }
     h2 {
         font-size: 2.25rem;
@@ -81,8 +94,37 @@
         letter-spacing: -0.02em;
         font-weight: 600;
     }
-    h1, h2, h3, h4, h5, h6 {
-        color: inherit;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: hsl(var(--h2-color));;
         margin: 0 0 0.7rem 0;
+    }
+    .step {
+        counter-increment: step;
+    }
+
+    .step:before {
+        @apply absolute inline-flex items-center justify-center font-mono text-base font-medium text-center border-4 rounded-full w-9 h-9 bg-muted -indent-px border-background;
+        @apply ml-[-50px] mt-[-4px];
+        content: counter(step);
+    }
+
+    .chunk-container {
+        @apply shadow-none;
+    }
+
+    .chunk-container::after {
+        content: "";
+        @apply absolute border shadow-xl -inset-4 rounded-xl;
+    }
+
+    @media (max-width: 640px) {
+        .container {
+            @apply px-4;
+        }
     }
 }
