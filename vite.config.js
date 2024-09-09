@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => {
                 refresh: true,
             }),
             react({
-                jsxRuntime: 'classic', // Usa el runtime clásico de React si hay problemas con el nuevo runtime
+                jsxRuntime: 'automatic', // Cambiado a 'automatic' para usar el nuevo runtime de React
             }),
         ],
         css: {
@@ -55,23 +55,21 @@ export default defineConfig(({ mode }) => {
         },
         resolve: {
             alias: {
-                // Alias para resolver problemas de exportación en @inertiajs/core y nprogress
-                '@inertiajs/core': path.resolve(__dirname, 'node_modules/@inertiajs/core/dist/index.esm.js'),
-                'nprogress': path.resolve(__dirname, 'node_modules/nprogress/nprogress.js'),
-                'deepmerge': path.resolve(__dirname, 'node_modules/deepmerge/dist/umd.js'),
-                'qs': path.resolve(__dirname, 'node_modules/qs/lib/index.js'),
-                'lodash.isequal': path.resolve(__dirname, 'node_modules/lodash.isequal/index.js'),
+                // Puedes comentar o ajustar este alias si es necesario
+                // '@inertiajs/core': path.resolve(__dirname, 'node_modules/@inertiajs/core/dist/index.esm.js'),
             },
         },
         optimizeDeps: {
             include: [
+                'react',
+                'react-dom',
+                '@inertiajs/react',
                 'tailwindcss',
                 'autoprefixer',
                 'deepmerge',
                 'qs',
                 'nprogress',
                 'lodash.isequal',
-                '@inertiajs/react',
             ],
             esbuildOptions: {
                 define: {
@@ -92,8 +90,6 @@ export default defineConfig(({ mode }) => {
                 ],
             },
             rollupOptions: {
-                // Eliminar la configuración 'external' para evitar problemas con las importaciones de React
-                // external: ['react', 'react-dom'],
                 output: {
                     globals: {
                         react: 'React',
