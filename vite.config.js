@@ -60,10 +60,19 @@ export default defineConfig(({ mode }) => {
                 'nprogress': path.resolve(__dirname, 'node_modules/nprogress/nprogress.js'),
                 'deepmerge': path.resolve(__dirname, 'node_modules/deepmerge/dist/umd.js'),
                 'qs': path.resolve(__dirname, 'node_modules/qs/lib/index.js'),
+                'lodash.isequal': path.resolve(__dirname, 'node_modules/lodash.isequal/index.js'), // Alias para lodash.isequal
             },
         },
         optimizeDeps: {
-            include: ['tailwindcss', 'autoprefixer', 'deepmerge', 'qs', 'nprogress'],
+            include: [
+                'tailwindcss', 
+                'autoprefixer', 
+                'deepmerge', 
+                'qs', 
+                'nprogress', 
+                'lodash.isequal', // Incluir lodash.isequal en las dependencias optimizadas
+                '@inertiajs/react' // Incluir @inertiajs/react en las dependencias optimizadas
+            ],
             esbuildOptions: {
                 define: {
                     global: 'globalThis',  // Manejar el uso de "global" en algunos paquetes.
@@ -73,9 +82,17 @@ export default defineConfig(({ mode }) => {
         build: {
             sourcemap: true, // Para facilitar la depuración.
             commonjsOptions: {
-                include: [/tailwindcss/, /autoprefixer/, /deepmerge/, /qs/, /nprogress/],
+                include: [
+                    /tailwindcss/, 
+                    /autoprefixer/, 
+                    /deepmerge/, 
+                    /qs/, 
+                    /nprogress/, 
+                    /lodash.isequal/ // Incluir lodash.isequal en commonjsOptions
+                ],
                 namedExports: {
                     'nprogress': ['default'],  // Forzar la exportación predeterminada de nprogress.
+                    'lodash.isequal': ['default'] // Forzar la exportación predeterminada de lodash.isequal
                 },
             },
             rollupOptions: {
