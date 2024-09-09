@@ -51,12 +51,18 @@ export default defineConfig(({ mode }) => {
                 ],
             },
         },
+        resolve: {
+            alias: {
+                'deepmerge': path.resolve(__dirname, 'node_modules/deepmerge/dist/umd.js'),
+                'qs': path.resolve(__dirname, 'node_modules/qs/lib/index.js'),
+            },
+        },
         optimizeDeps: {
-            include: ['tailwindcss', 'autoprefixer'],
+            include: ['tailwindcss', 'autoprefixer', 'deepmerge', 'qs'],
         },
         build: {
             commonjsOptions: {
-                include: [/tailwindcss/, /autoprefixer/],
+                include: [/tailwindcss/, /autoprefixer/, /deepmerge/, /qs/],
             },
         },
     };

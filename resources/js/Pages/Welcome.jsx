@@ -53,7 +53,7 @@ export default function Welcome({ }) {
                 <div className="flex flex-col w-full">
                     <Tabs
                         className="flex flex-row items-center w-full p-5"
-                        defaultValue="Intro"
+                        defaultValue="INTRO"
                     >
                         <TabsList className="fixed top-[20px] left-[20px]">
                             <TabsTrigger value="INTRO" className="text-xs">1. Introducción</TabsTrigger>
@@ -144,10 +144,6 @@ export default function Welcome({ }) {
                                         'Completar funciones necesarias para la publicación de contenido',
                                     ]} />
 
-                                    <DialogContent dialogId="task-102" hasDialogContent={true} inertiaProps={props}>
-                                        <p>Este es el contenido del diálogo 81.</p>
-                                    </DialogContent>
-
                                 </div>
 
                                 <div className="w-full mt-5 mb-5 text-left">
@@ -207,7 +203,7 @@ export default function Welcome({ }) {
                                         </p>
                                     </DialogContent>
                                     {/* Lógica de detección de archivos */}
-                                    <DialogContent dialogId="task-107" hasDialogContent={true} inertiaProps={props}>
+                                    <DialogContent dialogId="task-17" hasDialogContent={true} inertiaProps={props}>
                                         <p className="text-xs">
                                             El sistema maneja tres tipos de contenido: samples, música y posts.
                                         </p>
@@ -271,7 +267,6 @@ export default function Welcome({ }) {
                                         </p>
 
                                     </DialogContent>
-
 
                                 </div>
                             </div>
