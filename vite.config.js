@@ -72,8 +72,8 @@ export default defineConfig(({ mode }) => {
                 'nprogress',
                 'lodash.isequal',
                 '@inertiajs/react',
-                'react',  // Incluye react aquí
-                'react-dom',  // Incluye react-dom aquí
+                'react',  
+                'react-dom',  
             ],
             esbuildOptions: {
                 define: {
@@ -82,19 +82,22 @@ export default defineConfig(({ mode }) => {
             },
         },
         build: {
-            sourcemap: true, // Para facilitar la depuración.
+            sourcemap: true,
             commonjsOptions: {
                 include: [
-                    /tailwindcss/, 
-                    /autoprefixer/, 
-                    /deepmerge/, 
-                    /qs/, 
-                    /nprogress/, 
+                    /node_modules/,
+                    /tailwindcss/,
+                    /autoprefixer/,
+                    /deepmerge/,
+                    /qs/,
+                    /nprogress/,
                     /lodash.isequal/,
-                    /react/,  // Incluye react aquí
-                    /react-dom/,  // Incluye react-dom aquí
+                    /react/,
+                    /react-dom/,
+                    /prop-types/,  
                 ],
             },
+        },
             rollupOptions: {
                 output: {
                     globals: {
