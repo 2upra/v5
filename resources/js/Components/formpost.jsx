@@ -13,7 +13,7 @@ import {
     FormField,
     FormItem,
     FormMessage,
-} from "@/components/form";
+} from "@/Components/Forms";
 import { File, Download, Star, Triangle } from "@geist-ui/icons";
 import { ProfileHeader } from "@/Components/ProfileHeader";
 import { ImageUpload } from "./ImageUpload";
