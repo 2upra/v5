@@ -94,10 +94,9 @@ export default defineConfig(({ mode }) => {
                     /lodash.isequal/,
                     /react/,
                     /react-dom/,
-                    /prop-types/,  
+                    /prop-types/,  // Asegúrate de incluir prop-types si es necesario
                 ],
             },
-        },
             rollupOptions: {
                 output: {
                     globals: {
