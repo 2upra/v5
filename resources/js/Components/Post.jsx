@@ -4,11 +4,11 @@ import { Button } from "@/Components/ButtonW";
 import Waveform from "@/Components/Wave";
 import {
     Heart,
-    MoreHorizontal,
     MessageCircle,
     Share2,
     Download,
 } from "@geist-ui/icons";
+import { MoreHorizontal } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
