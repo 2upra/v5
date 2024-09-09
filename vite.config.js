@@ -61,7 +61,7 @@ export default defineConfig(({ mode }) => {
             include: ['tailwindcss', 'autoprefixer', 'deepmerge', 'qs'],
         },
         build: {
-            sourcemap: false, // Desactivar sourcemaps
+            sourcemap: true,
             commonjsOptions: {
                 include: [/tailwindcss/, /autoprefixer/, /deepmerge/, /qs/],
             },
