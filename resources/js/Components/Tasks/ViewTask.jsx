@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import * as PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Checkbox } from "@/Components/Checkboxs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/Tables";
