@@ -14,7 +14,7 @@ import {
     FormItem,
     FormMessage,
 } from "@/Components/Forms";
-import { File, Download, Star, Triangle } from "@geist-ui/icons";
+import { File, Download, Star, Triangle } from "lucide-react";
 import { ProfileHeader } from "@/Components/ProfileHeader";
 import { ImageUpload } from "./ImageUpload";
 import { AudioUpload } from "./AudioUpload";
