@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => {
                 refresh: true,
             }),
             react({
-                jsxRuntime: 'classic', // Usa el runtime clásico de React si hay problemas con el nuevo runtime
+                jsxRuntime: 'automatic', // Cambiado a 'automatic' para versiones modernas de React
             }),
         ],
         css: {
@@ -72,6 +72,8 @@ export default defineConfig(({ mode }) => {
                 'nprogress',
                 'lodash.isequal',
                 '@inertiajs/react',
+                'react',  // Incluye react aquí
+                'react-dom',  // Incluye react-dom aquí
             ],
             esbuildOptions: {
                 define: {
@@ -89,15 +91,15 @@ export default defineConfig(({ mode }) => {
                     /qs/, 
                     /nprogress/, 
                     /lodash.isequal/,
+                    /react/,  // Incluye react aquí
+                    /react-dom/,  // Incluye react-dom aquí
                 ],
             },
             rollupOptions: {
-                // Eliminar la configuración 'external' para evitar problemas con las importaciones de React
-                // external: ['react', 'react-dom'],
                 output: {
                     globals: {
-                        react: 'React',
-                        'react-dom': 'ReactDOM',
+                        // react: 'React',
+                        // 'react-dom': 'ReactDOM',
                     },
                 },
             },
