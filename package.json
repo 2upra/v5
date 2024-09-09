@@ -39,6 +39,7 @@
         "date-fns": "^3.6.0",
         "deepmerge": "^4.2.2",
         "geist": "^1.3.1",
+        "lodash.isequal": "^4.5.0",
         "lucide-react": "^0.438.0",
         "nprogress": "^0.2.0",
         "prop-types": "^15.8.1",
