@@ -8,7 +8,7 @@ import {
     Download,
 } from "@geist-ui/icons";
 import { MoreHorizontal } from "lucide-react";
-import { Heart } from "@geist-ui/icons";
+import { Heart } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
