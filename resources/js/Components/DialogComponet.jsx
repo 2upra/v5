@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from 'react';
+/* import React, { forwardRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDialogContext } from './DialogContext';
 import { cn } from "@/lib/utils";
@@ -101,4 +101,4 @@ export const DialogDescription = ({
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-);
+); */
