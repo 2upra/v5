@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button } from "@/Components/ButtonW";
-import { Music } from "@geist-ui/icons";
+import { MusicIcon } from "lucide-react";
 
 export function AudioUpload({ onAudioSelect }) {
     const audioInputRef = useRef(null);
@@ -28,7 +28,7 @@ export function AudioUpload({ onAudioSelect }) {
                     className="text-white bg-white bg-opacity-20 hover:bg-white hover:bg-opacity-30"
                     onClick={() => audioInputRef.current.click()}
                 >
-                    <Music className="w-4 h-4" />
+                    <MusicIcon className="w-4 h-4" />
                 </Button>
             </label>
         </>
