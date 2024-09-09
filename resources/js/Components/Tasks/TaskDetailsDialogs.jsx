@@ -1,7 +1,7 @@
 import React from "react";
 import { DialogTrigger } from "@/Components/DialogComponet";
 import { Badge } from "@/Components/badge";
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/Components/Tooltip";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/Components/Tooltips";
 import { useDialogContext } from "../DialogContext";
 
 const TaskDetailsDialog = ({ task }) => {
