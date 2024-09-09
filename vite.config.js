@@ -41,7 +41,9 @@ export default defineConfig(({ mode }) => {
                 input: 'resources/js/app.jsx',
                 refresh: true,
             }),
-            react(),
+            react({
+                jsxRuntime: 'classic', // Usa el runtime clásico de React si hay problemas con el nuevo runtime
+            }),
         ],
         css: {
             postcss: {

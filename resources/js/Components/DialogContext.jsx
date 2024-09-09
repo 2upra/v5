@@ -1,6 +1,6 @@
 // DialogContext.jsx
-import React, { createContext, useContext, useState } from 'react';
-
+import * as React from 'react';
+import { createContext, useContext, useState } from 'react';
 const DialogContext = createContext();
 
 export const DialogProvider = ({ children }) => {
