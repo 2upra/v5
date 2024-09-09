@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Checkbox } from "@/Components/checkbox";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/Tables";
 import TaskDetailsDialog from "./TaskDetailsDialogs"; 
 import { Badge } from "@/Components/badge";
 

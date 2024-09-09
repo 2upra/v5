@@ -6,7 +6,7 @@ import {
     TableHead,
     TableRow,
     TableCell,
-} from "@/Components/Table"; 
+} from "@/Components/Tables"; 
 
 const SamplesTable = () => {
     // Datos de ejemplo

@@ -6,7 +6,7 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@/Components/Table"; // Ajusta la ruta según sea necesario
+} from "@/Components/Tables"; // Ajusta la ruta según sea necesario
 
 const PostsTable = () => {
   // Datos de ejemplo
