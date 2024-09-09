@@ -18,7 +18,7 @@ import { File, Download, Star, Triangle } from "@geist-ui/icons";
 import { ProfileHeader } from "@/Components/ProfileHeader";
 import { ImageUpload } from "./ImageUpload";
 import { AudioUpload } from "./AudioUpload";
-import { Card, CardContent, CardFooter } from "@/components/card";
+import { Card, CardContent, CardFooter } from "@/Components/Cards";
 
 const formSchema = z.object({
     contenido: z.string().min(6, {
