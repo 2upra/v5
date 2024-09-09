@@ -63,18 +63,26 @@ export default defineConfig(({ mode }) => {
         optimizeDeps: {
             include: ['tailwindcss', 'autoprefixer', 'deepmerge', 'qs', 'nprogress'],
             esbuildOptions: {
-                // Forzar a tratar `nprogress` como un módulo con exportaciones
                 define: {
-                    global: 'globalThis',  // Para manejar el uso de "global" en algunos paquetes.
+                    global: 'globalThis',  // Manejar el uso de "global" en algunos paquetes.
                 },
             },
         },
         build: {
-            sourcemap: true,
+            sourcemap: true, // Para facilitar la depuración.
             commonjsOptions: {
                 include: [/tailwindcss/, /autoprefixer/, /deepmerge/, /qs/, /nprogress/],
                 namedExports: {
-                    'nprogress': ['default'],  // Forzar la exportación predeterminada de nprogress
+                    'nprogress': ['default'],  // Forzar la exportación predeterminada de nprogress.
+                },
+            },
+            rollupOptions: {
+                external: ['react', 'react-dom'],
+                output: {
+                    globals: {
+                        react: 'React',
+                        'react-dom': 'ReactDOM',
+                    },
                 },
             },
         },
