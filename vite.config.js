@@ -13,12 +13,12 @@ export default defineConfig(({ mode }) => {
         port: 5175,
         https: false, // No usar HTTPS en desarrollo local
         hmr: {
-            host: 'localhost', // Host local
+            host: 'localhost',
             protocol: 'ws', // Usar WebSocket estándar
         },
     };
 
-    // Si estamos en modo de producción, sobreescribir configuración HTTPS
+    // Configuración para producción con HTTPS
     if (mode === 'production') {
         serverConfig = {
             host: '0.0.0.0',
@@ -53,17 +53,29 @@ export default defineConfig(({ mode }) => {
         },
         resolve: {
             alias: {
+                // Alias para resolver problemas de exportación en @inertiajs/core y nprogress
+                '@inertiajs/core': path.resolve(__dirname, 'node_modules/@inertiajs/core/dist/index.esm.js'),
+                'nprogress': path.resolve(__dirname, 'node_modules/nprogress/nprogress.js'),
                 'deepmerge': path.resolve(__dirname, 'node_modules/deepmerge/dist/umd.js'),
                 'qs': path.resolve(__dirname, 'node_modules/qs/lib/index.js'),
             },
         },
         optimizeDeps: {
-            include: ['tailwindcss', 'autoprefixer', 'deepmerge', 'qs'],
+            include: ['tailwindcss', 'autoprefixer', 'deepmerge', 'qs', 'nprogress'],
+            esbuildOptions: {
+                // Forzar a tratar `nprogress` como un módulo con exportaciones
+                define: {
+                    global: 'globalThis',  // Para manejar el uso de "global" en algunos paquetes.
+                },
+            },
         },
         build: {
             sourcemap: false, // Desactivar sourcemaps
             commonjsOptions: {
-                include: [/tailwindcss/, /autoprefixer/, /deepmerge/, /qs/],
+                include: [/tailwindcss/, /autoprefixer/, /deepmerge/, /qs/, /nprogress/],
+                namedExports: {
+                    'nprogress': ['default'],  // Forzar la exportación predeterminada de nprogress
+                },
             },
         },
     };
