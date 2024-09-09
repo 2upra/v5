@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Card, CardContent, CardFooter } from "@/Components/card";
-import { Button } from "@/Components/button";
+import { Button } from "@/Components/ButtonW";
 import Waveform from "@/Components/Wave";
 import {
     Heart,

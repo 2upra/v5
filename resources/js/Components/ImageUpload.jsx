@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Button } from "@/components/button";
+import { Button } from "@/Components/ButtonW";
 import { Image } from "@geist-ui/icons";
 
 export function ImageUpload({ onImageSelect }) {

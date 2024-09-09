@@ -2,7 +2,7 @@ import { Link, Head, usePage } from "@inertiajs/react";
 import React from "react";
 import { SocialPostCard } from "@/Components/Post";
 import { ProfileForm } from "@/Components/formpost";
-import { Button } from "@/Components/button";
+import { Button } from "@/Components/ButtonW";
 import {
     Tabs,
     TabsList,

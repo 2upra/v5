@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import ButtonCheckbox from "@/Components/ButtonCheckBoxs";
-import { Button } from "@/components/button";
-import Waveform from "@/components/Wave";
+import { Button } from "@/Components/ButtonW";
+import Waveform from "@/Components/Wave";
 import {
     Form,
     FormControl,
