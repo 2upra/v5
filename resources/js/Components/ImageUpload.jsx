@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button } from "@/Components/ButtonW";
-import { Image } from "@geist-ui/icons";
+import { Image } from "lucide-react";
 
 export function ImageUpload({ onImageSelect }) {
     const imageInputRef = useRef(null);
