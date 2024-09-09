@@ -96,7 +96,8 @@ export default defineConfig(({ mode }) => {
                 },
             },
             rollupOptions: {
-                external: ['react', 'react-dom'],
+                // Elimina o comenta la siguiente propiedad para evitar problemas con la exportación de createRoot
+                // external: ['react', 'react-dom'],
                 output: {
                     globals: {
                         react: 'React',
