@@ -2,14 +2,11 @@ import * as React from "react";
 import { Card, CardContent, CardFooter } from "@/Components/Cards";
 import { Button } from "@/Components/ButtonW";
 import Waveform from "@/Components/Wave";
-import {
-    MessageCircle,
-    Share2,
-    Download,
-} from "@geist-ui/icons";
 import { MoreHorizontal } from "lucide-react";
 import { Heart } from "lucide-react";
-import {
+import { MessageCircle } from "lucide-react";
+import { Share2 } from "lucide-react";
+import { Download } from "lucide-react";
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
