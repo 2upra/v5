@@ -16,6 +16,7 @@ Route::post('/tasks', [TaskController::class, 'store']);
 Route::get('/tasks/{task}', [TaskController::class, 'show']);
 // Para actualizar una tarea específica
 Route::put('/tasks/{task}', [TaskController::class, 'update']);
+// Descripción adicional
 
 
 Route::get('/', function () {

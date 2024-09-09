@@ -1,32 +1,35 @@
 import React from "react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/Components/dialog";
+import { DialogTrigger } from "@/Components/DialogComponet";
 import { Badge } from "@/Components/badge";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/Components/Tooltip";
+import { useDialogContext } from "../DialogContext";
 
 const TaskDetailsDialog = ({ task }) => {
     if (!task) return null;
 
+    const dialogId = `task-${task.id}`;
+    const { isDialogRegistered } = useDialogContext();
+
+    const hasDialogContent = isDialogRegistered(dialogId);
+
     return (
-        <Dialog>
-            <DialogTrigger dialogId={`dialog-${task.id}`}>
-                <Badge variant="outline" className="cursor-pointer">
-                    Detalles
-                </Badge>
-            </DialogTrigger>
-            <DialogContent dialogId={`dialog-${task.id}`}>
-                <DialogHeader>
-                    <DialogTitle>Detalles de la Tarea</DialogTitle>
-                </DialogHeader>
-                <DialogDescription>
-                    <p><strong>ID:</strong> {task.id}</p>
-                    <p><strong>Descripción:</strong> {task.description}</p>
-                    <p><strong>Estado:</strong> {task.status}</p>
-                    <p><strong>Asignado a:</strong> {task.user ? task.user.name : "Sin asignar"}</p>
-                </DialogDescription>
-                <DialogFooter>
-                    <button onClick={() => document.getElementById(`dialog-${task.id}`).close()}>Cerrar</button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+        <TooltipProvider delayDuration={100}>
+            <Tooltip>
+                <TooltipTrigger>
+                    <DialogTrigger dialogId={dialogId}>
+                        <Badge 
+                            variant="outline" 
+                            style={{ opacity: hasDialogContent ? 1 : 0.3 }}
+                        >
+                            Detalles
+                        </Badge>
+                    </DialogTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>{dialogId}</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     );
 };
 

@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Badge } from "@/Components/badge";
 import { Checkbox } from "@/Components/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/table";
-import { usePage } from "@inertiajs/react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/Components/dialog";
+import TaskDetailsDialog from "./TaskDetailsDialog"; 
+import { Badge } from "@/Components/badge";
 
 const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
 
@@ -47,6 +46,7 @@ const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
                                     <TableHead className="w-7/12 text-xs">Descripción</TableHead>
                                     <TableHead className="w-32 whitespace-nowrap">Estado</TableHead>
                                     <TableHead className="w-32 whitespace-nowrap">Asignado a</TableHead>
+                                    <TableHead className="w-20 whitespace-nowrap">Detalles</TableHead> {/* Nueva columna para el botón de detalles */}
                                 </TableRow>
                             </TableHeader>
                             <Droppable droppableId="tasks">
@@ -60,11 +60,11 @@ const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
                                                         className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-                                                        onClick={() => onTaskClick(task.id)}
                                                     >
                                                         <TableCell>
                                                             <Checkbox
                                                                 checked={task.status === "completed"}
+                                                                onClick={() => onTaskClick(task.id)} // Mover el onClick aquí
                                                                 readOnly
                                                                 aria-label="Task completed"
                                                                 className="translate-y-[2px]"
@@ -90,6 +90,9 @@ const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
                                                             <span className="truncate whitespace-nowrap">
                                                                 {task.user ? task.user.name : "Sin asignar"}
                                                             </span>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                           <TaskDetailsDialog task={task} />
                                                         </TableCell>
                                                     </TableRow>
                                                 )}
