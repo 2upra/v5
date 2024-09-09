@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Checkbox } from "@/Components/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/table";
-import TaskDetailsDialog from "./TaskDetailsDialog"; 
+import TaskDetailsDialog from "./TaskDetailsDialogs"; 
 import { Badge } from "@/Components/badge";
 
 const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
