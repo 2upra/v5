@@ -11,10 +11,10 @@ export default defineConfig(({ mode }) => {
     let serverConfig = {
         host: '0.0.0.0',
         port: 5175,
-        https: false, // No usar HTTPS en desarrollo local
+        https: false,
         hmr: {
             host: 'localhost',
-            protocol: 'ws', // Usar WebSocket estándar
+            protocol: 'ws',
         },
     };
 
@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
             },
             hmr: {
                 host: 'laravel.2upra.com',
-                protocol: 'wss', // Utilizar WebSocket seguro
+                protocol: 'wss',
             },
         };
     }
@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => {
                 refresh: true,
             }),
             react({
-                jsxRuntime: 'classic', // Usa el runtime clásico de React si hay problemas con el nuevo runtime
+                jsxRuntime: 'classic',
             }),
         ],
         css: {
@@ -55,12 +55,15 @@ export default defineConfig(({ mode }) => {
         },
         resolve: {
             alias: {
-                // Alias para resolver problemas de exportación en @inertiajs/core y nprogress
                 '@inertiajs/core': path.resolve(__dirname, 'node_modules/@inertiajs/core/dist/index.esm.js'),
+                '@inertiajs/react': path.resolve(__dirname, 'node_modules/@inertiajs/react/dist/index.esm.js'),
                 'nprogress': path.resolve(__dirname, 'node_modules/nprogress/nprogress.js'),
                 'deepmerge': path.resolve(__dirname, 'node_modules/deepmerge/dist/umd.js'),
                 'qs': path.resolve(__dirname, 'node_modules/qs/lib/index.js'),
-                'lodash.isequal': path.resolve(__dirname, 'node_modules/lodash.isequal/index.js'), // Alias para lodash.isequal
+                'lodash.isequal': path.resolve(__dirname, 'node_modules/lodash.isequal/index.js'),
+                'react': path.resolve(__dirname, 'node_modules/react/index.js'),
+                'react-dom': path.resolve(__dirname, 'node_modules/react-dom/index.js'),
+                'react-dom/client': path.resolve(__dirname, 'node_modules/react-dom/client.js'),
             },
         },
         optimizeDeps: {
@@ -70,17 +73,20 @@ export default defineConfig(({ mode }) => {
                 'deepmerge', 
                 'qs', 
                 'nprogress', 
-                'lodash.isequal', // Incluir lodash.isequal en las dependencias optimizadas
-                '@inertiajs/react' // Incluir @inertiajs/react en las dependencias optimizadas
+                'lodash.isequal',
+                '@inertiajs/react',
+                'react',
+                'react-dom',
+                'react-dom/client',
             ],
             esbuildOptions: {
                 define: {
-                    global: 'globalThis',  // Manejar el uso de "global" en algunos paquetes.
+                    global: 'globalThis',
                 },
             },
         },
         build: {
-            sourcemap: true, // Para facilitar la depuración.
+            sourcemap: true,
             commonjsOptions: {
                 include: [
                     /tailwindcss/, 
@@ -88,21 +94,16 @@ export default defineConfig(({ mode }) => {
                     /deepmerge/, 
                     /qs/, 
                     /nprogress/, 
-                    /lodash.isequal/ // Incluir lodash.isequal en commonjsOptions
+                    /lodash\.isequal/,
+                    /react/,
+                    /react-dom/,
+                    /@inertiajs/,
                 ],
-                namedExports: {
-                    'nprogress': ['default'],  // Forzar la exportación predeterminada de nprogress.
-                    'lodash.isequal': ['default'] // Forzar la exportación predeterminada de lodash.isequal
-                },
+                transformMixedEsModules: true,
             },
             rollupOptions: {
-                // Elimina o comenta la siguiente propiedad para evitar problemas con la exportación de createRoot
-                // external: ['react', 'react-dom'],
                 output: {
-                    globals: {
-                        react: 'React',
-                        'react-dom': 'ReactDOM',
-                    },
+                    manualChunks: undefined,
                 },
             },
         },
