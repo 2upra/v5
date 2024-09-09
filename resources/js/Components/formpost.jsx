@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import ButtonCheckbox from "@/components/ButtonCheckBox";
+import ButtonCheckbox from "@/Components/ButtonCheckBoxs";
 import { Button } from "@/components/button";
 import Waveform from "@/components/Wave";
 import {
