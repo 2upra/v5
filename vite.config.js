@@ -70,7 +70,7 @@ export default defineConfig(({ mode }) => {
             },
         },
         build: {
-            sourcemap: false, // Desactivar sourcemaps
+            sourcemap: true,
             commonjsOptions: {
                 include: [/tailwindcss/, /autoprefixer/, /deepmerge/, /qs/, /nprogress/],
                 namedExports: {
