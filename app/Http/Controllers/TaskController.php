@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\User;
 
 class TaskController extends Controller
 {
 
-    //Busca una tarea
     public function index(Request $request)
     {
         $description = $request->query('description'); 
-        $tasks = Task::where('description', $description)->get();
+        $tasks = Task::with('user') // Cargar la relación con el usuario
+                     ->where('description', $description)
+                     ->get();
+    
         return response()->json($tasks);
     }
 
@@ -61,6 +64,9 @@ class TaskController extends Controller
             'status' => $request->input('status'),
             'executed_by' => $executedBy,
         ]);
+    
+        // Recargar la relación 'user' para asegurarse de que esté disponible en la respuesta
+        $task->load('user');
     
         return response()->json($task);
     }

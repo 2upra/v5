@@ -3,58 +3,77 @@ import CreateTask from './CreateTask';
 import ViewTask from './ViewTask';
 import UpdateTask from './UpdateTask';
 
-const TaskManager = ({ descriptions }) => {
+const TaskManager = ({ descriptions, id }) => {
     const [tasks, setTasks] = useState([]);
     const [selectedTaskId, setSelectedTaskId] = useState(null);
 
     useEffect(() => {
-        // Cargar el orden personalizado al iniciar
-        const savedOrder = localStorage.getItem('taskOrder');
+        const savedOrder = localStorage.getItem(`taskOrder_${id}`);
+        console.log(`Orden guardado en localStorage para ${id}:`, savedOrder);
         if (savedOrder) {
             const orderIds = JSON.parse(savedOrder);
             setTasks(prevTasks => {
-                const orderedTasks = [];
-                orderIds.forEach(id => {
-                    const task = prevTasks.find(t => t.id === id);
-                    if (task) orderedTasks.push(task);
-                });
-                return [...orderedTasks, ...prevTasks.filter(t => !orderIds.includes(t.id))];
+                const orderedTasks = orderIds
+                    .map(id => prevTasks.find(t => t.id === id))
+                    .filter(Boolean);
+                console.log(`Tareas ordenadas al cargar para ${id}:`, orderedTasks);
+                return orderedTasks;
             });
         }
-    }, []);
+    }, [id]);
 
-    const handleTaskCreated = useCallback((task) => {
+    const handleTaskCreated = useCallback((newTask) => {
+        console.log('Nueva tarea creada:', newTask);
         setTasks(prevTasks => {
-            const newTasks = [...prevTasks, task];
-            saveOrder(newTasks.map(t => t.id));
-            return newTasks;
+            const taskExists = prevTasks.some(task => task.id === newTask.id);
+            if (!taskExists) {
+                const updatedTasks = [...prevTasks, newTask];
+                console.log('Tareas después de agregar nueva tarea:', updatedTasks);
+                return updatedTasks;
+            }
+            return prevTasks;
         });
     }, []);
 
     const handleTaskClick = useCallback((taskId) => {
+        console.log('Tarea seleccionada para actualizar:', taskId);
         setSelectedTaskId(taskId);
     }, []);
 
     const handleTaskUpdated = useCallback((updatedTask) => {
-        setTasks(prevTasks => 
-            prevTasks.map(task => 
+        console.log('Tarea actualizada:', updatedTask);
+        setTasks(prevTasks => {
+            const updatedTasks = prevTasks.map(task =>
                 task.id === updatedTask.id ? updatedTask : task
-            )
-        );
+            );
+            console.log('Tareas después de la actualización:', updatedTasks);
+            return updatedTasks;
+        });
         setSelectedTaskId(null);
     }, []);
 
     const handleTasksReorder = useCallback((reorderedTasks) => {
+        console.log('Tareas reordenadas:', reorderedTasks);
         setTasks(reorderedTasks);
-        saveOrder(reorderedTasks.map(t => t.id));
-    }, []);
+        localStorage.setItem(`taskOrder_${id}`, JSON.stringify(reorderedTasks.map(t => t.id)));
+        console.log(`Nuevo orden de tareas guardado en localStorage para ${id}:`, reorderedTasks.map(t => t.id));
+    }, [id]);
 
-    const saveOrder = useCallback((orderIds) => {
-        localStorage.setItem('taskOrder', JSON.stringify(orderIds));
-    }, []);
+
+    useEffect(() => {
+        const savedOrder = localStorage.getItem(`taskOrder_${id}`);
+        if (savedOrder && tasks.length > 0) {
+            const orderIds = JSON.parse(savedOrder);
+            const orderedTasks = orderIds
+                .map(id => tasks.find(t => t.id === id))
+                .filter(Boolean);
+            setTasks([...orderedTasks, ...tasks.filter(t => !orderIds.includes(t.id))]);
+        }
+    }, [tasks, id]);
 
     return (
         <div>
+            {/* Renderiza CreateTask para cada descripción */}
             {descriptions.map((description, index) => (
                 <CreateTask
                     key={index}
@@ -63,18 +82,20 @@ const TaskManager = ({ descriptions }) => {
                 />
             ))}
 
+            {/* Renderiza la vista de tareas si hay tareas disponibles */}
             {tasks.length > 0 && (
-                <ViewTask 
-                    tasks={tasks} 
+                <ViewTask
+                    tasks={tasks}
                     onTaskClick={handleTaskClick}
                     onTasksReorder={handleTasksReorder}
                 />
             )}
-                
+
+            {/* Renderiza el componente UpdateTask si hay una tarea seleccionada */}
             {selectedTaskId && (
-                <UpdateTask 
-                    taskId={selectedTaskId} 
-                    onTaskUpdated={handleTaskUpdated} 
+                <UpdateTask
+                    taskId={selectedTaskId}
+                    onTaskUpdated={handleTaskUpdated}
                 />
             )}
         </div>

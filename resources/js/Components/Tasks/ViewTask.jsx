@@ -4,8 +4,24 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Badge } from "@/Components/badge";
 import { Checkbox } from "@/Components/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/table";
+import { usePage } from "@inertiajs/react";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/Components/dialog";
 
 const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
+
+    const getBadgeClass = (status) => {
+        switch (status) {
+            case "default":
+                return "badge-pending";
+            case "in_progress":
+                return "badge-in-progress";
+            case "completed":
+                return "badge-completed";
+            default:
+                return "";
+        }
+    };
+
     const onDragEnd = (result) => {
         if (!result.destination) {
             return;
@@ -27,8 +43,8 @@ const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead className="w-12"></TableHead>
-                                    <TableHead className="w-20 whitespace-nowrap">ID</TableHead>
-                                    <TableHead className="w-1/2 text-xs">Descripción</TableHead>
+                                    <TableHead className="w-20 whitespace-nowrap hidden">ID</TableHead> {/* Ocultar encabezado de ID */}
+                                    <TableHead className="w-7/12 text-xs">Descripción</TableHead>
                                     <TableHead className="w-32 whitespace-nowrap">Estado</TableHead>
                                     <TableHead className="w-32 whitespace-nowrap">Asignado a</TableHead>
                                 </TableRow>
@@ -54,25 +70,25 @@ const ViewTask = ({ tasks, onTaskClick, onTasksReorder }) => {
                                                                 className="translate-y-[2px]"
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
+                                                        <TableCell className="hidden"> {/* Ocultar celda de ID */}
                                                             <span className="truncate font-medium whitespace-nowrap">
                                                                 {task.id}
                                                             </span>
                                                         </TableCell>
                                                         <TableCell>
-                                                            <span className="truncate font-medium">
+                                                            <span className="font-medium">
                                                                 {task.description}
                                                             </span>
                                                         </TableCell>
                                                         <TableCell>
-                                                            <Badge variant="outline" className="whitespace-nowrap">
+                                                            <Badge variant="outline" className={`whitespace-nowrap ${getBadgeClass(task.status)}`}>
                                                                 {task.status === "in_progress" ? "En progreso" :
-                                                                 task.status === "completed" ? "Completada" : "Pendiente"}
+                                                                    task.status === "completed" ? "Completada" : "Pendiente"}
                                                             </Badge>
                                                         </TableCell>
                                                         <TableCell>
                                                             <span className="truncate whitespace-nowrap">
-                                                                {task.executed_by || "Sin asignar"}
+                                                                {task.user ? task.user.name : "Sin asignar"}
                                                             </span>
                                                         </TableCell>
                                                     </TableRow>

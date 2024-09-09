@@ -127,4 +127,18 @@
             @apply px-4;
         }
     }
+    .badge-pending {
+        background-color: #0f0f0f; /* Amarillo */
+        color: white;
+    }
+    
+    .badge-in-progress {
+        background-color: #5bc; /* Azul */
+        color: white;
+    }
+    
+    .badge-completed {
+        background-color: #33c790; /* Verde */
+        color: white;
+    }
 }

@@ -1,4 +1,5 @@
 import { Link, Head, usePage } from "@inertiajs/react";
+import React from "react";
 import { SocialPostCard } from "@/Components/Post";
 import { ProfileForm } from "@/Components/formpost";
 import {
@@ -7,17 +8,13 @@ import {
     TabsTrigger,
     TabsContent,
 } from "@/Components/TabsVertical";
-import React, { useState, useEffect } from "react";
-import CreateTask from '@/Components/Tasks/CreateTask';
-import ViewTask from '@/Components/Tasks/ViewTask';
 import TaskManager from "@/Components/Tasks/TaskManager";
+import PostsTable from "@/Components/TableSamples/PostTable";
+import MediaTable from "@/Components/TableSamples/MediaTable";
+import SamplesTable from "@/Components/TableSamples/SamplesTable";
 
 export default function Welcome({ }) {
     const { auth } = usePage().props;
-    const handleTaskCreated = (task) => {
-        console.log('Task created:', task);
-    };
-    const taskId = 1;
     return (
         <>
             <Head title="Welcome" />
@@ -54,74 +51,93 @@ export default function Welcome({ }) {
                         defaultValue="tab1"
                     >
                         <TabsList className="fixed top-[20px] left-[20px]">
-                            <TabsTrigger value="tab1">Samples</TabsTrigger>
-                            <TabsTrigger value="tab2">Test</TabsTrigger>
+                            <TabsTrigger value="Intro">1. Introducción</TabsTrigger>
+                            <TabsTrigger value="Tablas">2. Tablas</TabsTrigger>
+                            <TabsTrigger value="PDC">3. Publicación de contenido</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="tab1">
+                        <TabsContent value="INTRO">
                             <div className="flex flex-col items-center justify-center m-auto max-w-[600px]">
-                                <div className="w-full mt-5 mb-0 text-left">
-                                    <div>
-                                        {auth.user && (
-                                            <p>User ID: {auth.user.id}</p>
-                                        )}
-                                    </div>
-                                    <h2>1. Gestión de samples</h2>
-                                    <p>
-                                        Esta es la principal fuente de valor del
-                                        proyecto y la más importante, por lo
-                                        tanto es la primera en la que se debería
-                                        de trabajar. Para que sea realmente
-                                        especial, no solo desde la publicación,
-                                        sino desde su distribución y búsqueda
-                                        deben de ofrecer una experiencia
-                                        irrepetible en cualquier otra
-                                        plataforma.
-                                    </p>
-                                </div>
-
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="Tablas">
+                            <div className="flex flex-col items-center justify-center m-auto max-w-[600px]">
                                 <div className="w-full mt-5 mb-5 text-left">
-                                    <h3>1.1 Formulario de sample</h3>
+                                    <h4>2.1. Tabla de posts</h4>
+                                    <PostsTable />
+                                </div>
+                                <div className="w-full mt-5 mb-5 text-left">
+                                    <h4 >2.2. Tabla de medios</h4>
+                                    <MediaTable />
+                                </div>
+                                <div className="w-full mt-5 mb-5 text-left">
+                                    <h4>2.3. Tabla Samples</h4>
+                                    <SamplesTable />
+                                </div>
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="PDC">
+                            <div className="flex flex-col items-center justify-center m-auto max-w-[600px]">
+                                <div className="w-full mt-5 mb-5 text-left">
+                                    <h2>3. Publicación de contenido</h2>
                                     <p>
-                                        Esta es la herramienta principal de los
-                                        artistas, lo que le permitirá compartir
-                                        sus trabajos, conseguir colaboraciones y
-                                        presentarse ante sus fans.
+                                        Se explicará brevemente el como debe funcionar el sistema de publicacion
                                     </p>
-
                                 </div>
 
                                 <ProfileForm />
 
                                 <div className="w-full mt-5 mb-5 text-left">
-                                    <h4>1.1.1 Conexión al backend</h4>
+                                    <h3>3.1 Tareas principales</h3>
                                     <p>
-                                        Al publicar un sample debe generase una
-                                        publicación adjunto al usuario que
-                                        contenga los archivos que subio, y toda
-                                        la información que proporcionó. <br />
-                                        <br />
                                     </p>
-                                    <TaskManager descriptions={[
-                                        'Implementar validación de archivos subidos',
+                                    <TaskManager id="taskSample" descriptions={[
+                                        'Definir base datos de Post, medios, y samples',
+                                        'Terminar IU de formulario de publicación de contenido',
+                                        'Completar funciones necesarias para la publicación de contenido (3.2)',
+                                        'El formulario crea y cumple todas las funciones necesarias'
+                                    ]} />
+                                    <TaskManager id="ejemplo" descriptions={['tarea 1', 'tarea 2', 'tarea 3']}/>
+                                </div>
+
+                                <div className="w-full mt-5 mb-5 text-left">
+                                    <h3>3.2 Funciones necesarias para la publicación de contenido</h3>
+                                    <p>
+                                        Al publicar un sample debe generase una publicación adjunto al usuario que contenga los archivos que subio, y toda la información que se proporcionó. <br /><br />
+                                    </p>
+                                    <TaskManager id="taskSample" descriptions={[
+                                        'Validación de archivos correctas del lado de servidor, solo permitir imagenes, audios, y archivo de formato especificos (3.2.1)',
                                         'Desarrollar lógica de detección de tipo de publicación',
-                                        'Crear sistema de procesamiento de audio',
                                         'Implementar almacenamiento de archivos en servidor',
                                         'Desarrollar detección de audios duplicados',
-                                        'Crear API para manejo de publicaciones',
-                                        'Integrar formulario con backend',
                                         'Implementar manejo de errores y notificaciones',
                                         'Optimizar rendimiento de carga y procesamiento',
                                         'Realizar pruebas de integración y seguridad'
                                     ]} />
-                                    <TaskManager descriptions={['Tarea 1', 'Tarea 2', 'Tarea 3']} />
+                                </div>
+                                <div className="w-full mt-5 mb-5 text-left">
+                                    <h4>3.2.1 Tipos de formatos de archivos </h4>
+                                    <p> 
+                                        $mimes['flp'] = 'application/octet-stream';<br />
+                                        $mimes['zip'] = 'application/zip';<br />
+                                        $mimes['rar'] = 'application/x-rar-compressed';<br />
+                                        $mimes['cubase'] = 'application/octet-stream';<br />
+                                        $mimes['proj'] = 'application/octet-stream';<br />
+                                        $mimes['aiff'] = 'audio/aiff';<br />
+                                        $mimes['midi'] = 'audio/midi';<br />
+                                        $mimes['ptx'] = 'application/octet-stream';<br />
+                                        $mimes['sng'] = 'application/octet-stream';<br />
+                                        $mimes['aup'] = 'application/octet-stream';<br />
+                                        $mimes['omg'] = 'application/octet-stream';<br />
+                                        $mimes['rpp'] = 'application/octet-stream';<br />
+                                        $mimes['xpm'] = 'image/x-xpixmap';<br />
+                                        $mimes['tst'] = 'application/octet-stream'; <br />
+                                        <br />
+                                    </p>
                                 </div>
                                 <SocialPostCard />
                             </div>
                         </TabsContent>
-                        <TabsContent value="tab2"></TabsContent>
-                        <TabsContent value="tab3">
-                            <p>Contenido del Tab 3</p>
-                        </TabsContent>
+
                     </Tabs>
                 </div>
             </div>
