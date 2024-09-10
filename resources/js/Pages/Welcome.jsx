@@ -79,8 +79,6 @@ export default function Welcome({ }) {
                                         Nuestro enfoque principal es apoyar a los artistas emergentes, brindándoles las herramientas necesarias para destacar en la industria musical. Creemos en democratizar el acceso a la producción y promoción musical, asegurando que cada talento tenga la oportunidad de ser escuchado.
                                     </p>
 
-                                    <h3 className="mt-5">¿Por qué existe un proyecto así?</h3>
-
                                     <p className="mt-5">
                                         En un mundo dominado por algoritmos, donde el éxito depende de la suerte en la viralización y de cuántos post puedes crear para posicionarte en algún trend de TikTok, surge un problema grave: el arte ya no predomina por su significado ni por su valor, sino por su capacidad de viralización. 2upra busca establecer un sistema justo que alivie la necesidad de contenido basura, no luchando contra él, sino abriendo nuevas puertas para explorar el mundo artístico musical de nuevas formas.
                                     </p>
@@ -164,7 +162,7 @@ export default function Welcome({ }) {
                                     ]} />
 
                                     {/* Tipos de archivos permitidos */}
-                                    <DialogContent dialogId="task-126" hasDialogContent={true} inertiaProps={props}>
+                                    <DialogContent dialogId="task-17" hasDialogContent={true} inertiaProps={props}>
                                         <p className="text-xs">
                                             Implementar validación de tipos de archivo tanto en el cliente (formulario) como en el servidor. El sistema debe procesar únicamente los tipos de archivo especificados a continuación y notificar al usuario cuando intente cargar un archivo no permitido.
                                         </p>
@@ -202,8 +200,8 @@ export default function Welcome({ }) {
                                             - Proporcionar mensajes de error claros y específicos para cada tipo de archivo no permitido.
                                         </p>
                                     </DialogContent>
-                                    {/* Lógica de detección de archivos */}
-                                    <DialogContent dialogId="task-17" hasDialogContent={true} inertiaProps={props}>
+                                    {/* Lógica de detección de tipo de publicacion*/}
+                                    <DialogContent dialogId="task-10" hasDialogContent={true} inertiaProps={props}>
                                         <p className="text-xs">
                                             El sistema maneja tres tipos de contenido: samples, música y posts.
                                         </p>
@@ -213,7 +211,7 @@ export default function Welcome({ }) {
                                     </DialogContent>
 
                                     {/* Detección de archivos duplicados */}
-                                    <DialogContent dialogId="task-127" hasDialogContent={true} inertiaProps={props}>
+                                    <DialogContent dialogId="task-18" hasDialogContent={true} inertiaProps={props}>
                                         <p className="text-xs">
                                             Implementar un sistema de detección de duplicados en el servidor para audios, imágenes y otros archivos.
                                         </p>
@@ -226,7 +224,7 @@ export default function Welcome({ }) {
                                     </DialogContent>
 
                                     {/* Gestión de archivos de usuario */}
-                                    <DialogContent dialogId="task-130" hasDialogContent={true} inertiaProps={props}>
+                                    <DialogContent dialogId="task-20" hasDialogContent={true} inertiaProps={props}>
                                         <p className="text-xs">
                                             Implementar un sistema de almacenamiento basado en carpetas por usuario para una gestión eficiente de archivos.
                                         </p>
@@ -239,7 +237,7 @@ export default function Welcome({ }) {
                                     </DialogContent>
 
                                     {/* Carga de archivos en segundo plano */}
-                                    <DialogContent dialogId="task-133" hasDialogContent={true} inertiaProps={props}>
+                                    <DialogContent dialogId="task-21" hasDialogContent={true} inertiaProps={props}>
                                         <p className="text-xs">
                                             Implementar un sistema de carga de archivos asíncrono en el formulario.
                                         </p>
@@ -252,7 +250,7 @@ export default function Welcome({ }) {
                                     </DialogContent>
 
                                     {/*Opciones de post */}
-                                    <DialogContent dialogId="task-134" hasDialogContent={true} inertiaProps={props}>
+                                    <DialogContent dialogId="task-19" hasDialogContent={true} inertiaProps={props}>
                                         <p className="text-xs">
                                             El post tiene 3 opciones
                                         </p>
